@@ -1,0 +1,20 @@
+security:
+  basic:
+    enabled: false
+spring:
+  cloud:
+    stream:
+      bindings:
+        myOutput:
+          contentType: application/json
+          destination: temp-queue1
+          producer:
+            required-groups:
+            - rabbit-receiver1
+      rabbit:
+        bindings:
+          myOutput:
+            producer:
+              exchangeType: fanout
+
+            

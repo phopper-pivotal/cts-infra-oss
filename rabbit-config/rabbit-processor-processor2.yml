@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+        consumer:
+          maxAttempts: 3
+      bindings:
+        myInput:
+          consumer:
+            concurrency: 1
+          destination: temp-queue2
+          group: rabbit-processor2
+        myOutput:
+          destination: temp-queue3
+          producer:
+            required-groups:
+            - rabbit-receiver3
+      rabbit:
+        bindings:
+          myInput:
+            consumer:
+              exchangeType: fanout
+          myOutput:
+            producer:
+              exchangeType: fanout
+

@@ -1,0 +1,17 @@
+---
+applications:
+- name: rabbit-receiver4
+  buildpack: java_buildpack_offline
+  instances: 1
+  memory: 1280M
+  routes:
+  - route: rabbit-receiver4.dev.internal.cernermass.com
+  timeout: 180
+  path: ./target/rabbit-receiver-SNAPSHOT.jar
+  env:
+    JAVA_OPTS: -Djava.security.egd=file:/dev/./urandom
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '[enabled: false]'
+    SPRING_PROFILES_ACTIVE: cloud, dev, receiver4
+  services:
+  - config-server
+  - rabbitmq-solo

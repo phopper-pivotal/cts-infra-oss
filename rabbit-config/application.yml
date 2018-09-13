@@ -1,0 +1,42 @@
+security:
+  user:
+    name: user
+    password: user123
+    role:
+    - ACTUATOR
+    
+management:
+  context-path: /application
+
+spring:
+  datasource.tomcat:
+    jmx-enabled: true
+    default-auto-commit: true
+    min-evictable-idle-time-millis: 10000
+    test-on-borrow: true
+    validation-interval: 30000 
+    validation-query: SELECT 1
+  redis:
+    timeout: 30000
+    pool:
+      max-active: 2048
+      max-idle: 1024
+      min-idle: 20  
+feign:
+  httpclient:
+    enabled: true
+
+---
+spring:
+  profiles: debug
+    
+debug: true
+
+---
+spring:
+  profiles: random-port
+
+server:
+  port: 0
+
+  
